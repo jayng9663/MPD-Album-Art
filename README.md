@@ -1,5 +1,7 @@
 # MPD-album-art
-A simple bash shell script to show mpd album art in terminal
+A simple bash shell script to show MPD album art in the terminal.
+
+It will automatically centers the album art and fills any remaining space with transparency (alpha channel) when the album art is smaller than the target (ALBUM_SIZE) size.
 
 ## Required
 - `mpc`
