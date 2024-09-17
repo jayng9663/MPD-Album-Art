@@ -5,8 +5,8 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 ## Cover Art Priority Order (Highest to Lowest):
 - Embedded Album Art in Music File
 - Cover Art in Album Directory
-- Backup Album Art (Optional)
 - Online Album Art (if `DOWNLOAD_FROM_INTERNET` enable)
+- Backup Album Art (Optional)
 - Exit if No Cover Art Available
 
 ## Required
