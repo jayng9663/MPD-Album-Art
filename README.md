@@ -1,5 +1,6 @@
 # MPD-album-art
-A simple bash shell script to show MPD album art in the terminal.
+A simple bash shell script to show MPD album art in the terminal.<br />
+In Ver 2.0+, it will now download the album from musicbrainz using wget automatically.
 
 ## Required
 - `mpc`
@@ -8,6 +9,7 @@ A simple bash shell script to show MPD album art in the terminal.
 - `ffmpeg`
 - `imagemagick`
 - `img2sixel`
+- `wget` (If using download from internet option)
 
 ## Install
 Simply put the album.sh and album_bg.sh to the `.ncmpcpp` directory.
@@ -23,6 +25,7 @@ Simply run the `album.sh` in any terminal which supports img2sixel.
 ## Config
 - Backup album: To use a backup album, set the BACKUP_ALBUM variable in `album_bg.sh` to the backup image full path.
 - Album size: To change the album display size, change the ALBUM_SIZE variable in `album_bg.sh` to the px you want. It will automatically centers the album art and fills any remaining space with transparency (alpha channel) when the album art is smaller than the target display (ALBUM_SIZE) size.
+- Download from interent: By default it's enabled, to disable change DOWNLOAD_FROM_INTERNET variable in `album_bg.sh` to another number.
 
 ## Screenshot
 ![alt text](https://wiki.hkvfs.com/images/1/1b/Ncmcpp_with_album_art_example_1.png)
