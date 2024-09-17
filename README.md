@@ -2,6 +2,13 @@
 A simple bash shell script to show MPD album art in the terminal.<br />
 In Ver 2.0+, it will now download the album from musicbrainz using wget automatically.
 
+## Cover Art Priority Order (Highest to Lowest):
+- Embedded Album Art in Music File
+- Cover Art in Album Directory
+- Backup Album Art (Optional)
+- Online Album Art (if `DOWNLOAD_FROM_INTERNET` enable)
+- Exit if No Cover Art Available
+
 ## Required
 - `mpc`
 - `ncmpcpp`
