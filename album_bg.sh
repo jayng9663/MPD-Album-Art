@@ -43,8 +43,6 @@ if [ -z "$art" ] && [ "$DOWNLOAD_FROM_INTERNET" -eq 1 ]; then
 
       if [ -s "$ONLINE_ALBUM" ]; then
         art="$ONLINE_ALBUM"
-      else
-        rm "$ONLINE_ALBUM"
       fi
     fi
   fi
