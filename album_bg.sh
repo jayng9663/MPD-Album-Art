@@ -1,11 +1,12 @@
 #!/bin/bash
 
+MPC_CMD="mpc"
 ALBUM="/tmp/album_cover.png"
 ALBUM_SIZE="350"
 EMB_ALBUM="/tmp/album_cover_embedded.png"
 #BACKUP_ALBUM="$HOME/.ncmpcpp/backup_album.png"
-MPC_CMD="mpc"
 MUSIC_DIR="$HOME/Music/"
+DOWNLOAD_FROM_INTERNET=1
 ONLINE_ALBUM="/tmp/online_album.png"
 
 file="$MUSIC_DIR$($MPC_CMD --format %file% current)"
@@ -36,14 +37,16 @@ fi
 if [ -z "$art" ]; then
   art="$BACKUP_ALBUM"
 
-  id=$(wget -qO- "https://musicbrainz.org/ws/2/release/?query=artist:${album_name}%20release:${artist_name}%20date:${release_date}&fmt=json" | jq -r '.releases[0].id')
+  if [ "$DOWNLOAD_FROM_INTERNET" = 1 ]; then
+    id=$(wget -qO- "https://musicbrainz.org/ws/2/release/?query=artist:${album_name}%20release:${artist_name}%20date:${release_date}&fmt=json" | jq -r '.releases[0].id')
 
-  if [ "$id" != "null" ]; then
-    cover_art_url="http://coverartarchive.org/release/$id/front"
-    wget -q "$cover_art_url" -O "$ONLINE_ALBUM"
-    art="$ONLINE_ALBUM"
-  else
-    exit 1
+    if [ "$id" != "null" ]; then
+      cover_art_url="http://coverartarchive.org/release/$id/front"
+      wget -q "$cover_art_url" -O "$ONLINE_ALBUM"
+      art="$ONLINE_ALBUM"
+    else
+      exit 1
+    fi
   fi
 fi
 
