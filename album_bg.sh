@@ -29,25 +29,31 @@ else
   art="$EMB_ALBUM"
 fi
 
-if [ -z "$art" ]; then
-  art="$BACKUP_ALBUM"
-    if [ "$DOWNLOAD_FROM_INTERNET" -eq 1 ]; then
-    album_name=$(urlencode "$($MPC_CMD --format '%album%' current)")
-    artist_name=$(urlencode "$($MPC_CMD --format '%artist%' current)")
-    release_date=$(urlencode "$($MPC_CMD --format '%date%' current)")
-    if [ -z "$album_name" ] && [ -z "$artist_name" ]; then
-      exit 1
-    fi
+if [ -z "$art" ] && [ "$DOWNLOAD_FROM_INTERNET" -eq 1 ]; then
+  album_name=$(urlencode "$($MPC_CMD --format '%album%' current)")
+  artist_name=$(urlencode "$($MPC_CMD --format '%artist%' current)")
+  release_date=$(urlencode "$($MPC_CMD --format '%date%' current)")
+
+  if [ -n "$album_name" ] || [ -n "$artist_name" ]; then
     id=$(wget -qO- "https://musicbrainz.org/ws/2/release/?query=artist:${artist_name}%20release:${album_name}%20date:${release_date}&fmt=json" | jq -r '.releases[0].id')
+
     if [ "$id" != "null" ]; then
       cover_art_url="http://coverartarchive.org/release/$id/front"
       wget -q "$cover_art_url" -O "$ONLINE_ALBUM"
-      art="$ONLINE_ALBUM"
-    else
-      exit 1
+
+      if [ -s "$ONLINE_ALBUM" ]; then
+        art="$ONLINE_ALBUM"
+      else
+        rm "$ONLINE_ALBUM"
+      fi
     fi
   fi
 fi
 
+if [ -z "$art" ]; then
+  art="$BACKUP_ALBUM"
+fi
+
 convert "$art" -resize "${ALBUM_SIZE}x${ALBUM_SIZE}^" -gravity center -crop "${ALBUM_SIZE}x${ALBUM_SIZE}+0+0" +repage "$ALBUM" 2>/dev/null
+
 exit 0
