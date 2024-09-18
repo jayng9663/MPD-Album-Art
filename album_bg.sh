@@ -18,35 +18,33 @@ urlencode() {
   echo -n "$1" | perl -MURI::Escape -ne 'print uri_escape($_)'
 }
 
-if [ -z "$($MPC_CMD --format %file% current)" ] || [ ! -d "$album" ]; then
-  convert "$BACKUP_ALBUM" -resize "${ALBUM_SIZE}x${ALBUM_SIZE}^" -gravity center -crop "${ALBUM_SIZE}x${ALBUM_SIZE}+0+0" +repage "$ALBUM"
-  exit 1
-fi
-
-if ! ffmpeg -loglevel error -y -i "$file" -an -vcodec copy "$EMB_ALBUM" 2>/dev/null; then
-  art=$(find "$album" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.bmp" \) | grep -i -m 1 -E "front|cover")
-else
-  art="$EMB_ALBUM"
+if ! { [ -z "$($MPC_CMD --format %file% current)" ] || [ ! -d "$album" ]; }; then
+  if ! ffmpeg -loglevel error -y -i "$file" -an -vcodec copy "$EMB_ALBUM" 2>/dev/null; then
+    art=$(find "$album" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.bmp" \) | grep -i -m 1 -E "front|cover")
+  else
+    art="$EMB_ALBUM"
+  fi
 fi
 
 if [ -z "$art" ] && [ "$DOWNLOAD_FROM_INTERNET" -eq 1 ]; then
-  album_name=$(urlencode "$($MPC_CMD --format '%album%' current)")
-  artist_name=$(urlencode "$($MPC_CMD --format '%artist%' current)")
-  release_date=$(urlencode "$($MPC_CMD --format '%date%' current)")
+  IFS='$' read -r album_name artist_name release_date <<< "$($MPC_CMD --format '%album%$%artist%$%date%' current)"
 
-  if [ -n "$album_name" ] || [ -n "$artist_name" ]; then
-    id=$(wget -qO- "https://musicbrainz.org/ws/2/release/?query=artist:${artist_name}%20release:${album_name}%20date:${release_date}&fmt=json" | jq -r '.releases[0].id')
+  album_name=$(urlencode "$album_name")
+  artist_name=$(urlencode "$artist_name")
+  release_date=$(urlencode "$release_date")
 
-    if [ "$id" != "null" ]; then
+  if [ -n "$album_name" ] && [ -n "$artist_name" ]; then
+    id=$(wget -qO- "https://musicbrainz.org/ws/2/release/?query=artist:${artist_name}%20release:${album_name}%20date:${release_date}&fmt=json" | jq -r '.releases[0].id // empty')
+
+    if [ -n "$id" ]; then
       cover_art_url="http://coverartarchive.org/release/$id/front"
-      wget -q "$cover_art_url" -O "$ONLINE_ALBUM"
-
-      if [ -s "$ONLINE_ALBUM" ]; then
+      if wget -q "$cover_art_url" -O "$ONLINE_ALBUM" && [ -s "$ONLINE_ALBUM" ]; then
         art="$ONLINE_ALBUM"
       fi
     fi
   fi
 fi
+
 
 if [ -z "$art" ]; then
   art="$BACKUP_ALBUM"
