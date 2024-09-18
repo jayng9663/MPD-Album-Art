@@ -28,7 +28,7 @@ Simply put the album.sh and album_bg.sh to the `.ncmpcpp` directory.
 
 Then add to the ncmpcpp `config` to make it execute the script each time the song changes.
 ```
-execute_on_song_change = "~/.ncmpcpp/album_bg.sh"
+execute_on_song_change = "~/.ncmpcpp/album_bg.sh &"
 ```
 
 ## Use
