@@ -6,7 +6,7 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 - V1.0 First commit
 - V2.0 Added `Download From Internet` from musicbrainz using `wget`.
 - V2.1 Optimize the code
-- V2.1 Optimize the code, Added search by fingerprint
+- V2.2 Optimize the code, Added search by fingerprint and search method priorit.
 
 ## Cover Art Priority Order (Highest to Lowest):
 - Embedded Album Art in Music File
