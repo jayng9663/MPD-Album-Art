@@ -6,6 +6,7 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 - V1.0 First commit
 - V2.0 Added `Download From Internet` from musicbrainz using `wget`.
 - V2.1 Optimize the code
+- V2.1 Optimize the code, Added search by fingerprint
 
 ## Cover Art Priority Order (Highest to Lowest):
 - Embedded Album Art in Music File
@@ -22,13 +23,14 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 - `imagemagick`
 - `img2sixel`
 - `wget` (If using download from internet option)
+- `fpcalc` (If using fingerprint method search for download from internet option)
 
 ## Install
 Simply put the album.sh and album_bg.sh to the `.ncmpcpp` directory.
 
 Then add to the ncmpcpp `config` to make it execute the script each time the song changes.
 ```
-execute_on_song_change = "~/.ncmpcpp/album_bg.sh &"
+execute_on_song_change = "~/.ncmpcpp/album_bg.sh > /dev/null 2>&1 &"
 ```
 
 ## Use
@@ -38,6 +40,10 @@ Simply run the `album.sh` in any terminal which supports img2sixel.
 - Backup album: To use a backup album, set the BACKUP_ALBUM variable in `album_bg.sh` to the backup image full path.
 - Album size: To change the album display size, change the ALBUM_SIZE variable in `album_bg.sh` to the px you want. It will automatically centers the album art and fills any remaining space with transparency (alpha channel) when the album art is smaller than the target display (ALBUM_SIZE) size.
 - Download from interent: By default it's enabled, to disable change DOWNLOAD_FROM_INTERNET variable in `album_bg.sh` to another number.
+- Download from interent search method priority (Default is 1) 0-3: <br />
+1) Search via album name, artist name and the release date  <br />
+2) Search via fingerprint (AcoustID)  <br />
+Recommend to use mode 1 or 3 (Only run method for those didn't instlled `fpcalc`)
 
 ## Screenshot
 ![alt text](https://wiki.hkvfs.com/images/1/1b/Ncmcpp_with_album_art_example_1.png)
