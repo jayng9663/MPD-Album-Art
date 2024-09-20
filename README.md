@@ -41,8 +41,8 @@ Simply run the `album.sh` in any terminal which supports img2sixel.
 - Album size: To change the album display size, change the ALBUM_SIZE variable in `album_bg.sh` to the px you want. It will automatically centers the album art and fills any remaining space with transparency (alpha channel) when the album art is smaller than the target display (ALBUM_SIZE) size.
 - Download from interent: By default it's enabled, to disable change DOWNLOAD_FROM_INTERNET variable in `album_bg.sh` to another number.
 - Download from interent search method priority (Default is 1) 0-3: <br />
-1) Search via album name, artist name and the release date  <br />
-2) Search via fingerprint (AcoustID)  <br />
+1| Search via album name, artist name and the release date  <br />
+2| Search via fingerprint (AcoustID)  <br />
 Recommend to use mode 1 or 3 (Only run method for those didn't instlled `fpcalc`)
 
 ## Screenshot
