@@ -51,20 +51,17 @@ case_1() {
     release_date=$(urlencode "$release_date")
     url=$(wget -qO- "https://musicbrainz.org/ws/2/release/?query=artist:${artist_name}%20release:${album_name}%20date:${release_date}&fmt=json")
     ids=($(echo "$url" | jq -r --arg score "$SCORE" '.releases? | .[] | select(.score >= ($score | tonumber)) | "\(.id) \(.score)" // empty'))
-    if [ -n "$id" ]; then
+    for ((i = 0; i < ${#ids[@]}; i+=2)); do
+      id=${ids[i]}
       cover_art_url="http://coverartarchive.org/release/$id/front"
-      for ((i = 0; i < ${#ids[@]}; i+=2)); do
-        id=${ids[i]}
-        cover_art_url="http://coverartarchive.org/release/$id/front"
-        wget -q --spider "$cover_art_url"
+      wget -q --spider "$cover_art_url"
       if [ $? -eq 0 ]; then
         wget -q "$cover_art_url" -O "$ONLINE_ALBUM"
         art="$ONLINE_ALBUM"
         found_cover_art=true
         break
       fi
-      done
-    fi
+    done
   fi
 }
 
