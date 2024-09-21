@@ -10,6 +10,7 @@ MUSIC_DIR="$HOME/Music/"
 #Download from MusicBrainz
 DOWNLOAD_FROM_INTERNET=1
 OPTIONS=1
+ACOUSTID_API="DVTYRxcWDe"
 ONLINE_ALBUM="/tmp/online_album.png"
 
 file="$MUSIC_DIR$($MPC_CMD --format %file% current)"
