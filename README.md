@@ -27,20 +27,20 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 - `fpcalc` (If using fingerprint method search for download from internet option)
 
 ## Install
-Simply put the album.sh and album_bg.sh to the `.ncmpcpp` directory.
+Simply put the mpd-album-art.sh and mpd-album-art-bg.sh to the `.ncmpcpp` directory.
 
 Then add to the ncmpcpp `config` to make it execute the script each time the song changes.
 ```
-execute_on_song_change = "~/.ncmpcpp/album_bg.sh > /dev/null 2>&1 &"
+execute_on_song_change = "~/.ncmpcpp/mpd-album-art-bg.sh > /dev/null 2>&1 &"
 ```
 
 ## Use
 Simply run the `album.sh` in any terminal which supports img2sixel.
 
 ## Config
-- Backup album: To use a backup album, set the BACKUP_ALBUM variable in `album_bg.sh` to the backup image full path.
-- Album size: To change the album display size, change the ALBUM_SIZE variable in `album_bg.sh` to the px you want. It will automatically centers the album art and fills any remaining space with transparency (alpha channel) when the album art is smaller than the target display (ALBUM_SIZE) size.
-- Download from internet: By default it's enabled, to disable change DOWNLOAD_FROM_INTERNET variable in `album_bg.sh` to another number.
+- Backup album: To use a backup album, set the BACKUP_ALBUM variable in `mpd-album-art-bg.sh` to the backup image full path.
+- Album size: To change the album display size, change the ALBUM_SIZE variable in `mpd-album-art-bg.sh` to the px you want. It will automatically centers the album art and fills any remaining space with transparency (alpha channel) when the album art is smaller than the target display (ALBUM_SIZE) size.
+- Download from internet: By default it's enabled, to disable change DOWNLOAD_FROM_INTERNET variable in `mpd-album-art-bg.sh` to another number.
 - Download from internet search method priority (Default is 1) 1-4: <br />
 1| Search via album name, artist name and the release date  <br />
 2| Search via fingerprint (AcoustID)  <br />
