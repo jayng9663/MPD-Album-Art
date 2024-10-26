@@ -53,7 +53,7 @@ case_1() {
     ids=($(echo "$url" | jq -r --arg score "$SCORE" '.releases? | .[] | select(.score >= ($score | tonumber)) | "\(.id) \(.score)" // empty'))
     for ((i = 0; i < ${#ids[@]}; i+=2)); do
       id=${ids[i]}
-      cover_art_url="http://coverartarchive.org/release/$id/front"
+      cover_art_url="https://coverartarchive.org/release/$id/front"
       wget -q --spider "$cover_art_url"
       if [ $? -eq 0 ]; then
         wget -q "$cover_art_url" -O "$ONLINE_ALBUM"
@@ -77,7 +77,7 @@ case_2() {
       url=$(wget -qO- "https://api.acoustid.org/v2/lookup?client=$ACOUSTID_API&meta=releaseids&duration=$duration&fingerprint=$fingerprint")
       ids=($(echo "$url" | jq -r '.results[0].releases? | .[].id // empty'))
       for id in "${ids[@]}"; do
-        cover_art_url="http://coverartarchive.org/release/$id/front"
+        cover_art_url="https://coverartarchive.org/release/$id/front"
         wget -q --spider "$cover_art_url"
         if [ $? -eq 0 ]; then
           wget -q "$cover_art_url" -O "$ONLINE_ALBUM"
