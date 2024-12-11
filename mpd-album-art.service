@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/USER/.ncmpcpp
-ExecStart=/home/USER/.ncmpcpp/mpd-album-art-service.sh
+WorkingDirectory=/home/USER/.mpd
+ExecStart=/home/USER/.mpd/mpd-album-art-service.sh
 
 ProtectSystem=yes
 
