@@ -8,6 +8,7 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 - V2.1 Optimize the code
 - V2.2 Optimize the code, Added search by fingerprint and search method priorit.
 - V3.0 Optimize the code, Added new search method priorit (OPTIONS=4) and **Searching score**.
+- V4.0 Added password support for `mpc`, added support for systemd (no more related on `ncmpcpp`).
 
 ## Cover Art Priority Order (Highest to Lowest):
 - Embedded Album Art in Music File
@@ -29,7 +30,9 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 ## Install
 Simply put the mpd-album-art.sh and mpd-album-art-bg.sh to the `.ncmpcpp` directory.
 
-Then add to the ncmpcpp `config` to make it execute the script each time the song changes.
+Choose one for the trigger point (Trigger mpd-album-art-bg.sh when song has changed)
+1. **(Recommend)** If using systemd for trigger point, put the mpd-album-art.service into `/home/USER/.config/systemd/user/` and run `systemctl --user start mpd-album-art.service`, `systemctl --user enable mpd-album-art.service` if want it to autostart eveytime you login.
+2. If using ncmcpp for trigger point, add the code below to the ncmpcpp `config` to make it execute the script each time the song changes.
 ```
 execute_on_song_change = "~/.ncmpcpp/mpd-album-art-bg.sh > /dev/null 2>&1 &"
 ```
@@ -48,5 +51,5 @@ Recommend to use mode 1 or 3 (Only run method for those didn't instlled `fpcalc`
 - Download from internet Searching score (Default is 90) 0-100, only entries with a score equal to or higher than the selected value will be considered. The "searching score" represents a numerical value indicating how closely an entry matches the search query.
 
 ## Screenshot
-![alt text](https://wiki.hkvfs.com/images/1/1b/Ncmcpp_with_album_art_example_1.png)
-![alt text](https://wiki.hkvfs.com/images/9/99/Ncmcpp_album_art_example_2.png)
+![alt text](https://wiki.hkvfs.com/w/images/1/1b/Ncmcpp_with_album_art_example_1.png)
+![alt text](https://wiki.hkvfs.com/w/images/9/99/Ncmcpp_album_art_example_2.png)
