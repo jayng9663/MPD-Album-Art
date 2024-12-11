@@ -1,14 +1,19 @@
 #!/bin/bash
 # Created by jayng9663 (https://github.com/jayng9663)
 # Project link: https://github.com/jayng9663/MPD-Album-Art
-# Version V3.0
+# Version V4.0
 # Dependencies: mpc, ncmpcpp, inotify-tools, ffmpeg, imagemagick, img2sixel, wget (If using download from internet option), fpcalc (If using fingerprint method search for download from internet option)
 
 ##Config##
+ip=localhost
+port=6600
+password=
+[ -n "$password" ] && password="$password@"
+
 ALBUM="/tmp/album_cover.png"
 ALBUM_SIZE="350"
 EMB_ALBUM="/tmp/album_cover_embedded.png"
-MPC_CMD="mpc"
+MPC_CMD="mpc -h $password$ip -p $port"
 #BACKUP_ALBUM="$HOME/.ncmpcpp/backup_album.png"
 MUSIC_DIR="$HOME/Music/"
 
