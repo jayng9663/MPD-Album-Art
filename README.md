@@ -19,7 +19,7 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 
 ## Required
 - `mpc`
-- `ncmpcpp`
+- `ncmpcpp` (If not using Systemd)
 - `inotify-tools`
 - `ffmpeg`
 - `imagemagick`
@@ -28,7 +28,7 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 - `fpcalc` (If using fingerprint method search for download from internet option)
 
 ## Install
-Simply put the mpd-album-art.sh and mpd-album-art-bg.sh to the `.ncmpcpp` directory.
+Simply put the mpd-album-art.sh and mpd-album-art-bg.sh to the `.mpd` directory.
 
 Choose one for the trigger point (Trigger mpd-album-art-bg.sh when song has changed)
 1. **(Recommend)** If using systemd for trigger point, put the mpd-album-art.service into `/home/USER/.config/systemd/user/` and run `systemctl --user start mpd-album-art.service`, `systemctl --user enable mpd-album-art.service` if want it to autostart eveytime you login.
