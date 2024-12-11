@@ -1,0 +1,13 @@
+[Unit]
+Description=Music Player Daemon Album Art
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/USER/.ncmpcpp
+ExecStart=/home/USER/.ncmpcpp/mpd-album-art-service.sh
+
+ProtectSystem=yes
+
+[Install]
+WantedBy=default.target
