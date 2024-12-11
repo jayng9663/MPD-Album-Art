@@ -8,7 +8,7 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 - V2.1 Optimize the code
 - V2.2 Optimize the code, Added search by fingerprint and search method priorit.
 - V3.0 Optimize the code, Added new search method priorit (OPTIONS=4) and **Searching score**.
-- V4.0 Added password support for `mpc`, added support for systemd (no more related on `ncmpcpp`).
+- V4.0 Added password support for `mpc`, added support for systemd (no more relied on `ncmpcpp`).
 
 ## Cover Art Priority Order (Highest to Lowest):
 - Embedded Album Art in Music File
