@@ -29,7 +29,6 @@ echo $$ > $pid_file
 while true; do
     nc_output=$(echo -e "$CMD" | nc -N "$ip" "$port")
     playing_song=$(echo "$nc_output" | grep '^file:' | cut -d' ' -f2-)
-    echo "$nc_output"
     if [[ "$last_song" != "$playing_song" && -n "$playing_song" ]]; then
         echo "Song changed: [$playing_song]"
         last_song="$playing_song"
