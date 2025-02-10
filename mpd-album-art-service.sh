@@ -17,9 +17,9 @@ fi
 
 if [[ -f $pid_file ]]; then
     old_pid=$(cat $pid_file)
-    if ps -p "$old_pid" > /dev/null; then
+    if ps -p $old_pid > /dev/null; then
         echo "Killing previous instance with PID $old_pid"
-        kill "$old_pid"
+        kill $old_pid
         sleep 1
     fi
 fi
