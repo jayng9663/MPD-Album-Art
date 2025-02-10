@@ -28,7 +28,7 @@ ONLINE_ALBUM="/tmp/online_album.png"
 
 current_file=$($MPC_CMD --format %file% current)
 
-if [ $? -ne 0 ] || [ -z "$current_file" ]; then
+if [ -z "$current_file" ]; then
     exit 1
 fi
 
@@ -55,12 +55,12 @@ case_1() {
     artist_name=$(urlencode "$artist_name")
     release_date=$(urlencode "$release_date")
     url=$(wget -qO- "https://musicbrainz.org/ws/2/release/?query=artist:${artist_name}%20release:${album_name}%20date:${release_date}&fmt=json")
-    ids=($(echo "$url" | jq -r --arg score "$SCORE" '.releases? | .[] | select(.score >= ($score | tonumber)) | "\(.id) \(.score)" // empty'))
+    mapfile -t ids < <(jq -r --arg score "$SCORE" '.releases? | .[] | select(.score >= ($score | tonumber)) | "\(.id) \(.score)" // empty' <<< "$url")
     for ((i = 0; i < ${#ids[@]}; i+=2)); do
       id=${ids[i]}
       cover_art_url="https://coverartarchive.org/release/$id/front"
       wget -q --spider "$cover_art_url"
-      if [ $? -eq 0 ]; then
+      if ! $?; then
         wget -q "$cover_art_url" -O "$ONLINE_ALBUM"
         art="$ONLINE_ALBUM"
         found_cover_art=true
@@ -80,11 +80,11 @@ case_2() {
       duration=$(urlencode "$duration")
       fingerprint=$(urlencode "$fingerprint")
       url=$(wget -qO- "https://api.acoustid.org/v2/lookup?client=$ACOUSTID_API&meta=releaseids&duration=$duration&fingerprint=$fingerprint")
-      ids=($(echo "$url" | jq -r '.results[0].releases? | .[].id // empty'))
+      mapfile -t ids < <(jq -r '.results[0].releases? | .[].id // empty' <<< "$url")
       for id in "${ids[@]}"; do
         cover_art_url="https://coverartarchive.org/release/$id/front"
         wget -q --spider "$cover_art_url"
-        if [ $? -eq 0 ]; then
+        if ! $?; then
           wget -q "$cover_art_url" -O "$ONLINE_ALBUM"
           art="$ONLINE_ALBUM"
           found_cover_art=true
@@ -117,7 +117,6 @@ if [ -z "$art" ] && [ "$DOWNLOAD_FROM_INTERNET" -eq 1 ]; then
       ;;
 
     *)
-      break
       ;;
   esac
 fi
