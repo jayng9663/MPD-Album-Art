@@ -17,7 +17,6 @@ MPC_CMD="mpc -h $password$ip -p $port"
 #BACKUP_ALBUM="$HOME/.ncmpcpp/backup_album.png"
 MUSIC_DIR="$HOME/Music/"
 
-#Download from MusicBrainz
 DOWNLOAD_FROM_INTERNET=1
 OPTIONS=1
 ACOUSTID_API="DVTYRxcWDe"
