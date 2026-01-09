@@ -51,5 +51,5 @@ Recommend to use mode 1 or 3 (Only run method for those didn't instlled `fpcalc`
 - Download from internet Searching score (Default is 90) 0-100, only entries with a score equal to or higher than the selected value will be considered. The "searching score" represents a numerical value indicating how closely an entry matches the search query.
 
 ## Screenshot
-![alt text](https://wiki.hkvfs.com/w/images/1/1b/Ncmcpp_with_album_art_example_1.png)
-![alt text](https://wiki.hkvfs.com/w/images/9/99/Ncmcpp_album_art_example_2.png)
+![alt text](https://i.imgur.com/9Xl59k1.png)
+![alt text](https://i.imgur.com/tHgHVVR.png)
