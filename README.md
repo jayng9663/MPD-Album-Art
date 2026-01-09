@@ -9,6 +9,7 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 - V2.2 Optimize the code, Added search by fingerprint and search method priorit.
 - V3.0 Optimize the code, Added new search method priorit (OPTIONS=4) and **Searching score**.
 - V4.0 Added password support for `mpc`, added support for systemd (no more relied on `ncmpcpp`).
+- V5.0 Refactored core logic into modular functions, improved embedded album art extraction with ffmpeg, enhanced fallback mechanisms, streamlined API calls for MusicBrainz and AcoustID, and fixed PID handling for album viewer updates.
 
 ## Cover Art Priority Order (Highest to Lowest):
 - Embedded Album Art in Music File
@@ -20,10 +21,9 @@ In Ver 2.0+, it will now download the album from musicbrainz using wget automati
 ## Required
 - `mpc`
 - `ncmpcpp` (If not using Systemd)
-- `inotify-tools`
 - `ffmpeg`
 - `imagemagick`
-- `img2sixel`
+- `img2sixel/kitty`
 - `wget` (If using download from internet option)
 - `fpcalc` (If using fingerprint method search for download from internet option)
 
@@ -44,11 +44,11 @@ Simply run the `album.sh` in any terminal which supports img2sixel.
 - Backup album: To use a backup album, set the BACKUP_ALBUM variable in `mpd-album-art-bg.sh` to the backup image full path.
 - Album size: To change the album display size, change the ALBUM_SIZE variable in `mpd-album-art-bg.sh` to the px you want. It will automatically centers the album art and fills any remaining space with transparency (alpha channel) when the album art is smaller than the target display (ALBUM_SIZE) size.
 - Download from internet: By default it's enabled, to disable change DOWNLOAD_FROM_INTERNET variable in `mpd-album-art-bg.sh` to another number.
-- Download from internet search method priority (Default is 1) 1-4: <br />
-1| Search via album name, artist name and the release date  <br />
-2| Search via fingerprint (AcoustID)  <br />
-Recommend to use mode 1 or 3 (Only run method for those didn't instlled `fpcalc`)
-- Download from internet Searching score (Default is 90) 0-100, only entries with a score equal to or higher than the selected value will be considered. The "searching score" represents a numerical value indicating how closely an entry matches the search query.
+- Download from internet search method priority , 1 = use Case 1 if not found use Case 2; 2 = use Case 2 if not found use Case 1. 3 = only use Case 1; 4 = only use Case 2 (Default is 2) 1-4: <br />
+1| Case 1: Search via album name, artist name and the release date  <br />
+2| Case 2: Search via fingerprint (AcoustID)  <br />
+Recommend to use mode 2 or 4 if instlled `fpcalc`, since fingerprint usually get a more precise result.
+- Download from internet Searching score (Default is 90) 0-100, only entries with a score equal to or higher than the selected value will be considered. The "searching score" represents a numerical value indicating how closely an entry matches the search query. (this is only for Case 1)
 
 ## Screenshot
 ![alt text](https://i.imgur.com/9Xl59k1.png)
