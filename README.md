@@ -44,10 +44,14 @@ Simply run the `album.sh` in any terminal which supports img2sixel.
 - Backup album: To use a backup album, set the BACKUP_ALBUM variable in `mpd-album-art-bg.sh` to the backup image full path.
 - Album size: To change the album display size, change the ALBUM_SIZE variable in `mpd-album-art-bg.sh` to the px you want. It will automatically centers the album art and fills any remaining space with transparency (alpha channel) when the album art is smaller than the target display (ALBUM_SIZE) size.
 - Download from internet: By default it's enabled, to disable change DOWNLOAD_FROM_INTERNET variable in `mpd-album-art-bg.sh` to another number.
-- Download from internet search method priority , 1 = use Case 1 if not found use Case 2; 2 = use Case 2 if not found use Case 1. 3 = only use Case 1; 4 = only use Case 2 (Default is 2) 1-4: <br />
-1| Case 1: Search via album name, artist name and the release date  <br />
-2| Case 2: Search via fingerprint (AcoustID)  <br />
-Recommend to use mode 2 or 4 if instlled `fpcalc`, since fingerprint usually get a more precise result.
+- Download from internet search method priority (Default is 2): 1-4
+  1. Use Case 1, if not found use Case 2
+  2. Use Case 2, if not found use Case 1
+  3. Only use Case 1
+  4. Only use Case 2
+  - **Case 1**: Search via album name, artist name and the release date
+  - **Case 2**: Search via fingerprint (AcoustID)
+  - *Recommend to use mode 2 or 4 if installed `fpcalc`, since fingerprint usually gets a more precise result.*
 - Download from internet Searching score (Default is 90) 0-100, only entries with a score equal to or higher than the selected value will be considered. The "searching score" represents a numerical value indicating how closely an entry matches the search query. (this is only for Case 1)
 
 ## Screenshot
